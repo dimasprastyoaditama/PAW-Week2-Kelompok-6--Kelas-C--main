@@ -1,0 +1,42 @@
+@startuml
+title Sequence Diagram - Bertanya kepada Chatbot (Hybrid AIML + Groq)
+
+actor Mahasiswa
+participant "Antarmuka Web\n(Browser)" as UI
+participant "Server\n(Flask)" as Server
+participant "Interpreter AIML" as AIML
+database "Basis Pengetahuan" as KB
+participant "Groq API" as Groq
+database "Database Log" as DB
+
+Mahasiswa -> UI : Mengetik pertanyaan
+UI -> Server : POST /api/chat (pertanyaan)
+Server -> Server : Preprocessing\n(huruf besar, hapus tanda baca)
+Server -> AIML : respond(pertanyaan)
+
+alt Pattern AIML cocok
+    AIML --> Server : Jawaban dari template
+    note right of Server : status = terjawab_aiml
+else Pattern tidak cocok
+    AIML --> Server : Kosong
+    Server -> KB : Cari sumber relevan (kata kunci)
+    KB --> Server : Potongan sumber
+
+    alt Ada sumber relevan
+        Server -> Groq : chat.completions\n(system prompt + sumber + pertanyaan)
+        alt Groq berhasil
+            Groq --> Server : Jawaban AI
+            note right of Server : status = terjawab_llm
+        else Groq gagal (kuota habis / offline)
+            Groq --> Server : Error / timeout
+            note right of Server : status = gagal\n(pesan default + kontak akademik)
+        end
+    else Tidak ada sumber relevan
+        note right of Server : status = di_luar_topik\n(pesan penolakan + kontak akademik)
+    end
+end
+
+Server -> DB : Simpan log\n(pertanyaan, jawaban, status, waktu)
+Server --> UI : Jawaban (JSON)
+UI --> Mahasiswa : Menampilkan jawaban
+@enduml

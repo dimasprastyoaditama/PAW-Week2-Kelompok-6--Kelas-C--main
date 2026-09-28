@@ -1,0 +1,29 @@
+@startuml
+title Use Case Diagram - Chatbot Informasi Akademik
+left to right direction
+
+actor "Mahasiswa" as Mahasiswa
+actor "Admin" as Admin
+
+rectangle "Sistem Chatbot Informasi Akademik" {
+
+    usecase "Bertanya kepada Chatbot" as UC1
+
+    usecase "Login" as UC2
+    usecase "Mengelola Pattern AIML" as UC3
+    usecase "Mengelola Basis Pengetahuan" as UC4
+    usecase "Melihat Log Percakapan" as UC5
+}
+
+Mahasiswa --> UC1
+
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+
+UC3 ..> UC2 : <<include>>
+UC4 ..> UC2 : <<include>>
+UC5 ..> UC2 : <<include>>
+
+@enduml

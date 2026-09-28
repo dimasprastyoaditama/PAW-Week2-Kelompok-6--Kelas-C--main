@@ -1,0 +1,40 @@
+@startuml
+title Activity Diagram - Admin Mengelola Pattern AIML / Basis Pengetahuan
+
+|Admin|
+start
+:Membuka halaman login;
+:Mengisi username dan password;
+
+|Sistem|
+:Memverifikasi kredensial;
+
+if (Login berhasil?) then (ya)
+    |Admin|
+    :Memilih menu pengelolaan;
+
+    |Sistem|
+    :Menampilkan daftar data;
+
+    |Admin|
+    :Memilih aksi (tambah / ubah / hapus);
+    :Mengisi atau mengubah data;
+
+    |Sistem|
+    :Menyimpan perubahan ke database;
+    if (Data pattern AIML?) then (ya)
+        :Ekspor ke file .aiml dan reload interpreter;
+    else (tidak)
+    endif
+    :Menampilkan notifikasi berhasil;
+
+    |Admin|
+    :Melihat daftar terbaru;
+    stop
+else (tidak)
+    |Sistem|
+    :Menampilkan pesan error;
+    |Admin|
+    stop
+endif
+@enduml

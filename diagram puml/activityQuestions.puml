@@ -1,0 +1,41 @@
+@startuml
+title Activity Diagram - Bertanya kepada Chatbot
+
+|Mahasiswa|
+start
+:Membuka halaman chatbot;
+:Mengetik pertanyaan;
+:Mengirim pertanyaan;
+
+|Sistem|
+:Membersihkan teks\n(huruf besar, hapus tanda baca);
+:Mencocokkan dengan pattern AIML;
+
+if (Pattern cocok?) then (ya)
+    :Ambil jawaban dari template AIML;
+    :Status = terjawab_aiml;
+else (tidak)
+    :Cari sumber relevan di basis pengetahuan;
+    if (Ada sumber relevan?) then (ya)
+        :Kirim pertanyaan + sumber ke Groq;
+        if (Groq berhasil?) then (ya)
+            :Ambil jawaban AI;
+            :Tambahkan label "dijawab AI";
+            :Status = terjawab_llm;
+        else (tidak)
+            :Siapkan pesan default + kontak akademik;
+            :Status = gagal;
+        endif
+    else (tidak)
+        :Siapkan pesan di luar topik + kontak akademik;
+        :Status = di_luar_topik;
+    endif
+endif
+
+:Simpan log percakapan;
+:Tampilkan jawaban;
+
+|Mahasiswa|
+:Membaca jawaban;
+stop
+@enduml

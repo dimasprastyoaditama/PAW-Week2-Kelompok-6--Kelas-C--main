@@ -1,0 +1,43 @@
+@startuml
+title Arsitektur Sistem - Chatbot Informasi Akademik (Hybrid AIML + Groq)
+
+skinparam componentStyle rectangle
+left to right direction
+
+actor "Mahasiswa" as M
+actor "Admin" as A
+
+package "Lapisan Presentasi (Frontend)" {
+    [Halaman Chat\n(HTML, CSS, JavaScript)] as Chat
+    [Halaman Admin\n(HTML, CSS, JavaScript)] as AdminUI
+}
+
+package "Lapisan Aplikasi (Backend - Flask)" {
+    [API Layer\n(/api/chat, /api/login,\n/api/pattern, /api/pengetahuan, /api/log)] as API
+    [ChatbotService\n(preprocessing, alur hybrid)] as Service
+    [Interpreter AIML\n(python-aiml)] as AIML
+    [Auth\n(login, hash password)] as Auth
+}
+
+package "Lapisan Data" {
+    database "Database MySQL\n(admin, aiml_pattern,\nbasis_pengetahuan, log_percakapan)" as DB
+    folder "File .aiml" as File
+}
+
+cloud "Groq API\n(layanan eksternal)" as Groq
+
+M --> Chat
+A --> AdminUI
+Chat --> API : HTTP / JSON
+AdminUI --> API : HTTP / JSON
+API --> Service
+API --> Auth
+Service --> AIML
+AIML --> File : baca pattern
+Service --> DB : cari sumber,\nsimpan log
+Auth --> DB
+API --> DB : kelola data
+API ..> File : ekspor pattern\n+ reload
+Service ..> Groq : HTTPS\n(fallback)
+
+@enduml

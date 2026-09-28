@@ -1,0 +1,47 @@
+@startuml
+title ERD - Chatbot Informasi Akademik (Hybrid AIML + Groq)
+
+hide circle
+skinparam linetype ortho
+
+entity "admin" as admin {
+    * id_admin : INT <<PK>>
+    --
+    * username : VARCHAR(50) <<UNIQUE>>
+    * password_hash : VARCHAR(255)
+    * nama : VARCHAR(100)
+}
+
+entity "aiml_pattern" as pattern {
+    * id_pattern : INT <<PK>>
+    --
+    * pattern : VARCHAR(255)
+    * template : TEXT
+    kategori : VARCHAR(50)
+    tanggal_ubah : DATETIME
+    id_admin : INT <<FK>>
+}
+
+entity "basis_pengetahuan" as kb {
+    * id_pengetahuan : INT <<PK>>
+    --
+    * judul : VARCHAR(150)
+    * isi : TEXT
+    kategori : VARCHAR(50)
+    tanggal_ubah : DATETIME
+    id_admin : INT <<FK>>
+}
+
+entity "log_percakapan" as log {
+    * id_log : INT <<PK>>
+    --
+    * pertanyaan : TEXT
+    * jawaban : TEXT
+    * status : ENUM
+    * waktu : DATETIME
+}
+
+admin ||--o{ pattern : "mengelola"
+admin ||--o{ kb : "mengelola"
+
+@enduml

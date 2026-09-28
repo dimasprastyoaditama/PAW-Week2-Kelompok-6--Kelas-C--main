@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Chatbot Informasi Akademik</title>
+    <meta name="description" content="Homepage kelompok 6 kelas C: review jurnal chatbot informasi akademik berbasis AIML.">
+    <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a class="brand" href="homepage.html">Chatbot Akademik</a>
+            <nav class="nav" aria-label="Navigasi utama">
+                <a href="homepage.html" aria-current="page">Homepage</a>
+                <a href="index.html">Landing Page</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#arsitektur">Arsitektur</a>
+                <a href="#tim">Tim</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="beranda">
+            <div class="wrap">
+                <div class="hero-text">
+                    <h1>Tanya informasi akademik kapan saja, langsung dari browser</h1>
+                    <p>
+                        Website ini membahas jurnal tentang chatbot informasi akademik berbasis web
+                        yang memakai metode AIML. Kelompok kami mereview jurnalnya dan merancang
+                        sistem chatbot hybrid AIML dan Groq.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn" href="index.html">Baca review jurnal</a>
+                        <a class="btn btn-outline" href="#fitur">Lihat fitur</a>
+                    </div>
+                </div>
+
+                <div class="chat" role="img" aria-label="Contoh percakapan mahasiswa dengan chatbot akademik">
+                    <p class="chat-title">Contoh percakapan</p>
+                    <p class="bubble bubble-user">Kapan jadwal pengisian KRS?</p>
+                    <p class="bubble bubble-bot">Pengisian KRS mengikuti kalender akademik. Chatbot akan menampilkan tanggal yang tersimpan di basis pengetahuan.</p>
+                    <p class="bubble bubble-user">Terima kasih!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="fitur">
+            <div class="wrap">
+                <h2>Fitur utama sistem</h2>
+                <p class="section-lead">Rancangan chatbot yang kami buat memiliki enam fitur untuk mahasiswa dan admin.</p>
+
+                <div class="feature-grid">
+                    <article class="card card-key">
+                        <h3>Tanya jawab akademik</h3>
+                        <p>Mahasiswa bertanya lewat halaman chat dan mendapat jawaban informasi akademik.</p>
+                    </article>
+                    <article class="card card-key">
+                        <h3>Metode AIML</h3>
+                        <p>Pertanyaan dicocokkan dengan pattern AIML agar jawaban sesuai aturan yang terdaftar.</p>
+                    </article>
+                    <article class="card card-key">
+                        <h3>Fallback Groq API</h3>
+                        <p>Jika pattern tidak ditemukan, pertanyaan diteruskan ke layanan Groq sebagai cadangan.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Kelola pattern</h3>
+                        <p>Admin menambah dan mengubah pattern AIML setelah login.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Basis pengetahuan</h3>
+                        <p>Admin mengelola data yang dipakai sebagai sumber jawaban.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Log percakapan</h3>
+                        <p>Riwayat percakapan tersimpan dan dapat dilihat admin untuk evaluasi.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="arch" id="arsitektur">
+            <div class="wrap">
+                <h2>Arsitektur sistem</h2>
+                <p class="section-lead">Frontend HTML, CSS, dan JavaScript berkomunikasi dengan backend Flask, database MySQL, dan Groq API.</p>
+                <figure>
+                    <img src="out/arsitektur/arsitektur.png" alt="Diagram arsitektur sistem chatbot hybrid AIML dan Groq" width="1719" height="555">
+                    <figcaption>Diagram arsitektur (digeser ke samping pada layar kecil).</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="tim">
+            <div class="wrap">
+                <h2>Anggota kelompok 6</h2>
+                <p class="section-lead">Kelas C, Pengembangan Aplikasi Web.</p>
+                <ul class="team-grid">
+                    <li class="member"><strong>Muhammad Fawwaz Naufal Dzulfikar</strong><span>NIM 20240140122</span></li>
+                    <li class="member"><strong>Argy Tata Maulana</strong><span>NIM 20240140128</span></li>
+                    <li class="member"><strong>Dimas Prastyo Aditama</strong><span>NIM 20240140114</span></li>
+                    <li class="member"><strong>Risma Mutia Dewi</strong><span>NIM 20240140135</span></li>
+                    <li class="member"><strong>Narendra Nabil Putra Wardana</strong><span>NIM 20240140149</span></li>
+                    <li class="member"><strong>M. Ridho Akbar</strong><span>NIM 20240140142</span></li>
+                    <li class="member"><strong>M Wafa Rozanu</strong><span>NIM 20240140115</span></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <p>Tugas Kelompok - Pengembangan Aplikasi Web | Program Studi Teknologi Informasi</p>
+        </div>
+    </footer>
+
+</body>
+</html>

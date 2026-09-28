@@ -1,0 +1,60 @@
+@startuml
+title Class Diagram - Chatbot Informasi Akademik (Hybrid AIML + Groq)
+
+class Admin {
+    - idAdmin : int
+    - username : String
+    - passwordHash : String
+    - nama : String
+    + login(username, password) : boolean
+}
+
+class AIMLPattern {
+    - idPattern : int
+    - pattern : String
+    - template : String
+    - kategori : String
+    - tanggalUbah : DateTime
+    + tambah() : void
+    + ubah() : void
+    + hapus() : void
+    + eksporKeFile() : void
+}
+
+class BasisPengetahuan {
+    - idPengetahuan : int
+    - judul : String
+    - isi : String
+    - kategori : String
+    - tanggalUbah : DateTime
+    + tambah() : void
+    + ubah() : void
+    + hapus() : void
+    + cariRelevan(kataKunci) : List
+}
+
+class LogPercakapan {
+    - idLog : int
+    - pertanyaan : String
+    - jawaban : String
+    - status : String
+    - waktu : DateTime
+    + simpan() : void
+    + lihatSemua(status) : List
+}
+
+class ChatbotService {
+    + bersihkanInput(teks) : String
+    + prosesPertanyaan(teks) : String
+    + cariKonteks(teks) : String
+    + tanyaLLM(teks, konteks) : String
+    + reload() : void
+}
+
+Admin "1" --> "*" AIMLPattern : mengelola
+Admin "1" --> "*" BasisPengetahuan : mengelola
+Admin --> LogPercakapan : melihat
+ChatbotService ..> AIMLPattern : membaca
+ChatbotService ..> BasisPengetahuan : mencari sumber
+ChatbotService --> LogPercakapan : mencatat
+@enduml
